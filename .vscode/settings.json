@@ -1,7 +1,34 @@
 {
+  "cSpell.words": [
+    "antlr",
+    "AUTOINCREMENT",
+    "COUNTALL",
+    "DATETIME",
+    "gantt",
+    "ILIKE",
+    "Localstorage",
+    "minio",
+    "nextjs",
+    "nonstrict",
+    "OPENAI",
+    "openapi",
+    "shadcn",
+    "sharedb",
+    "signin",
+    "signout",
+    "sonarjs",
+    "sonner",
+    "testid",
+    "topo",
+    "zustand"
+  ],
   "eslint.workingDirectories": [
     {
-      "mode": "auto"
+      "pattern": "./apps/*/"
+    },
+    {
+      "pattern": "./packages/*/"
     }
-  ]
+  ],
+  "vitest.maximumConfigs": 10
 }

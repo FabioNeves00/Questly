@@ -1,19 +1,60 @@
 {
   "name": "hallowink-2024",
+  "version": "1.0.0",
+  "homepage": "https://github.com/RyanOliveira00/hallowink-2024",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RyanOliveira00/hallowink-2024"
+  },
+  "author": {
+    "name": "Ryan Oliveira",
+    "url": "https://github.com/RyanOliveira00"
+  },
   "private": true,
   "scripts": {
-    "build": "turbo build",
-    "dev": "turbo dev",
-    "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "clean:global-cache": "rimraf ./.cache",
+    "deps:check": "pnpm --package=npm-check-updates@latest dlx npm-check-updates --configFileName ncurc.yml --workspaces --root --mergeConfig",
+    "deps:update": "pnpm --package=npm-check-updates@latest dlx npm-check-updates --configFileName ncurc.yml -u --workspaces --root --mergeConfig",
+    "g:build": "pnpm -r run build",
+    "g:build-changed": "pnpm -r -F '...[origin/main]' build",
+    "g:check-dist": "pnpm -r --parallel check-dist",
+    "g:clean": "pnpm clean:global-cache && pnpm -r run clean",
+    "g:fix-all-files": "pnpm -r fix-all-files",
+    "g:lint": "pnpm -r --parallel lint --color",
+    "g:lint-staged-files": "lint-staged --allow-empty",
+    "g:lint-styles": "pnpm -r lint-styles --color",
+    "g:test": "pnpm g:test-e2e && pnpm g:test-unit",
+    "g:test-e2e": "pnpm -r test-e2e",
+    "g:test-e2e-cover": "pnpm -r test-e2e-cover",
+    "g:test-unit": "pnpm -r --parralel test-unit",
+    "g:test-unit-cover": "pnpm -r --parralel test-unit-cover",
+    "g:typecheck": "pnpm -r --parralel typecheck",
+    "install:husky": "node .husky/install.mjs",
+    "nuke:node_modules": "pnpm -r exec -- rm -fr node_modules",
+    "prepare": "run-s install:husky"
+  },
+  "dependencies": {
+    "cross-env": "7.0.3"
   },
   "devDependencies": {
+    "@commitlint/cli": "19.4.1",
+    "@commitlint/config-conventional": "19.4.1",
+    "@hallowink/eslint-config-bases": "workspace:^",
+    "@types/shell-quote": "1.7.5",
+    "eslint": "9.9.1",
+    "husky": "^9.1.5",
+    "lint-staged": "15.2.10",
     "prettier": "^3.2.5",
+    "rimraf": "6.0.1",
+    "shell-quote": "1.8.1",
     "turbo": "^2.1.1",
     "typescript": "^5.4.5"
   },
   "packageManager": "pnpm@8.15.6",
   "engines": {
-    "node": ">=18"
+    "node": ">=20.0.0",
+    "pnpm": ">=8.15.0",
+    "npm": "please-use-pnpm"
   }
 }
