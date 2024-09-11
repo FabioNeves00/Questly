@@ -25,6 +25,7 @@ export class DatabaseModule {
               user: envService.get<string>("DATABASE_USER"),
               password: envService.get<string>("DATABASE_PASSWORD"),
               database: envService.get<string>("DATABASE_NAME"),
+              ssl: envService.get<boolean>("SSL_MODE"),
             });
             return drizzle(connection, { schema });
           },

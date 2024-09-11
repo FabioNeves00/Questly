@@ -2,29 +2,40 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Auth {
-  """Example field (placeholder)"""
-  exampleField: Int!
+type User {
+  id: ID!
+  shots: Int
+  name: String!
+  username: String!
+  password: String!
+  wristCode: String!
 }
 
-type User {
-  """Example field (placeholder)"""
-  exampleField: Int!
+type Profile {
+  id: ID!
+  userId: String!
+  preferences: String!
+  bio: String!
 }
 
 type Query {
-  auth(id: Int!): Auth!
+  auth(id: Int!): User!
   users: [User!]!
-  user(id: Int!): User!
+  user(id: String!): [User!]!
+  profiles: [Profile!]!
+  profile(id: Int!): Profile!
 }
 
 type Mutation {
-  createAuth(createAuthInput: CreateAuthInput!): Auth!
-  updateAuth(updateAuthInput: UpdateAuthInput!): Auth!
-  removeAuth(id: Int!): Auth!
-  createUser(createUserInput: CreateUserInput!): User!
+  createAuth(createAuthInput: CreateAuthInput!): User!
+  updateAuth(updateAuthInput: UpdateAuthInput!): User!
+  removeAuth(id: Int!): User!
+  createUser(createUserInput: CreateUserInput!): [User!]!
   updateUser(updateUserInput: UpdateUserInput!): User!
-  removeUser(id: Int!): User!
+  removeUser(id: String!): User!
+  createProfile(createProfileInput: CreateProfileInput!): Profile!
+  updateProfile(updateProfileInput: UpdateProfileInput!): Profile!
+  removeProfile(id: Int!): Profile!
 }
 
 input CreateAuthInput {
@@ -39,11 +50,26 @@ input UpdateAuthInput {
 }
 
 input CreateUserInput {
+  name: String!
+  username: String!
+  password: String!
+  wristCode: String!
+}
+
+input UpdateUserInput {
+  name: String
+  username: String
+  password: String
+  wristCode: String
+  id: String!
+}
+
+input CreateProfileInput {
   """Example field (placeholder)"""
   exampleField: Int!
 }
 
-input UpdateUserInput {
+input UpdateProfileInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Int!

@@ -5,19 +5,24 @@ import { GraphQLModule } from "@nestjs/graphql";
 import { DatabaseModule } from "@db";
 import { EnvModule } from "@env";
 import { AuthModule } from "./modules/auth/auth.module";
+import { ProfilesModule } from "./modules/profiles/profiles.module";
 import { UsersModule } from "./modules/users/users.module";
+import * as dbSchema from "./schema";
 
 @Module({
   imports: [
-    GraphQLModule.forRoot<ApolloDriverConfig>({
+    DatabaseModule.forRoot({ schema: dbSchema }),
+    GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
-      playground: true,
-      autoSchemaFile: join(process.cwd(), "src/schema.gql"),
+      useFactory: () => ({
+        playground: true,
+        autoSchemaFile: join(process.cwd(), "src/schema.gql"),
+      }),
     }),
     EnvModule,
-    DatabaseModule.forRoot({}),
     AuthModule,
     UsersModule,
+    ProfilesModule,
   ],
 })
 export class AppModule {}

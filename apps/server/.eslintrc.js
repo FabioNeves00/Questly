@@ -33,7 +33,9 @@ module.exports = {
     {
       files: ["src/event-emitter/events/**/*.event.ts"],
       rules: {
+        "@typescript-eslint/consistent-type-imports": "off",
         "@typescript-eslint/naming-convention": "off",
+        "import/no-unresolved": "off",
       },
     },
   ],

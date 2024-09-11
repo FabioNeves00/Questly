@@ -1,10 +1,8 @@
 import { Inject } from "@nestjs/common";
 import { Resolver, Query, Mutation, Args, Int } from "@nestjs/graphql";
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { CreateUserInput } from "./dto/create-user.input";
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { UpdateUserInput } from "./dto/update-user.input";
-import { User } from "./entities/user.entity";
+import { User } from "./entities/user.graphql";
 import { UsersService } from "./users.service";
 
 @Resolver("users")
@@ -14,21 +12,24 @@ export class UsersResolver {
     private readonly usersService: UsersService,
   ) {}
 
-  @Mutation(() => User, { name: "createUser" })
-  createUser(
+  @Mutation(() => [User], { name: "createUser" })
+  async createUser(
     @Args("createUserInput") createUserInput: CreateUserInput,
-  ): string {
-    return this.usersService.create(createUserInput);
+  ): Promise<User[]> {
+    console.log(createUserInput);
+    const users = await this.usersService.create(createUserInput);
+    console.log(users);
+    return users;
   }
 
   @Query(() => [User], { name: "users" })
-  findAll() {
-    return this.usersService.findAll();
+  async findAll() {
+    return await this.usersService.findAll();
   }
 
-  @Query(() => User, { name: "user" })
-  findOne(@Args("id", { type: () => Int }) id: number) {
-    return this.usersService.findOne(id);
+  @Query(() => [User], { name: "user" })
+  async findOne(@Args("id", { type: () => String }) id: string) {
+    return await this.usersService.findOne(id);
   }
 
   @Mutation(() => User)
@@ -37,7 +38,7 @@ export class UsersResolver {
   }
 
   @Mutation(() => User)
-  removeUser(@Args("id", { type: () => Int }) id: number) {
+  removeUser(@Args("id", { type: () => String }) id: string) {
     return this.usersService.remove(id);
   }
 }

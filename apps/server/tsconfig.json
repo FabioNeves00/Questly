@@ -21,7 +21,11 @@
       "@db": ["libs/database/src"],
       "@db/*": ["libs/database/src/*"],
       "@env": ["libs/env/src"],
-      "@env/*": ["libs/env/src/*"]
+      "@env/*": ["libs/env/src/*"],
+      "@profiles": ["src/profiles"],
+      "@profiles/*": ["src/modules/profiles/*"],
+      "@users": ["src/modules/users"],
+      "@users/*": ["src/modules/users/*"]
     }
   }
 }

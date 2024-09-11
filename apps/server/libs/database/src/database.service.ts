@@ -6,6 +6,6 @@ import { DATABASE_PROVIDER } from "./database.module";
 export class DatabaseService<T extends NonNullable<unknown>> {
   constructor(
     @Inject(DATABASE_PROVIDER)
-    private readonly db: PostgresJsDatabase<T>,
+    readonly db: PostgresJsDatabase<T>,
   ) {}
 }

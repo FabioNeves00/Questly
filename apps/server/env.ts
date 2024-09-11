@@ -8,6 +8,10 @@ export const envSchema = z.object({
   DATABASE_PASSWORD: z.string(),
   DATABASE_HOST: z.string(),
   DATABASE_PORT: z.string().transform((port) => parseInt(port)),
+  SSL_MODE: z
+    .string()
+    .default("true")
+    .transform((v) => Boolean(v)),
 });
 
 export type IEnv = z.infer<typeof envSchema>;
