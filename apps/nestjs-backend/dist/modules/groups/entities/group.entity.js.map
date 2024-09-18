@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../src/modules/groups/entities/group.entity.ts"],"sourcesContent":["export class Group {}\n"],"names":["Group"],"mappings":";;;;+BAAaA;;;eAAAA;;;AAAN,IAAA,AAAMA,QAAN,MAAMA;AAAO"}

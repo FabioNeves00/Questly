@@ -16,6 +16,29 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@common/*": [
+        "./src/common/*"
+      ],
+      "@config/*": [
+        "./src/config/*"
+      ],
+      "@utils/*": [
+        "./src/utils/*"
+      ],
+      "@user/*": [
+        "./src/modules/users/*"
+      ],
+      "@question/*": [
+        "./src/modules/questions/*"
+      ],
+      "@group/*": [
+        "./src/modules/groups/*"
+      ],
+      "@assignment/*": [
+        "./src/modules/assignments/*"
+      ],
+    },
   }
 }

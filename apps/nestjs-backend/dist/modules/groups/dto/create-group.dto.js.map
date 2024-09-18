@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../src/modules/groups/dto/create-group.dto.ts"],"sourcesContent":["export class CreateGroupDto {}\n"],"names":["CreateGroupDto"],"mappings":";;;;+BAAaA;;;eAAAA;;;AAAN,IAAA,AAAMA,iBAAN,MAAMA;AAAgB"}

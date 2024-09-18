@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../src/common/database/schema.ts"],"sourcesContent":["export * from '@user/entities/user.entity'\nexport * from '@question/entities/question.entity'\nexport * from '@group/entities/group.entity'\nexport * from '@assignment/entities/assignment.entity'\n"],"names":[],"mappings":";;;;qBAAc;qBACA;qBACA;qBACA"}

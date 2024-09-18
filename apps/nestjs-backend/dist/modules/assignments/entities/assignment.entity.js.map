@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../src/modules/assignments/entities/assignment.entity.ts"],"sourcesContent":["export class Assignment {}\n"],"names":["Assignment"],"mappings":";;;;+BAAaA;;;eAAAA;;;AAAN,IAAA,AAAMA,aAAN,MAAMA;AAAY"}
