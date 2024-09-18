@@ -1,43 +1,33 @@
-import { Inject, Injectable } from "@nestjs/common";
-import { eq } from "drizzle-orm";
-import { DatabaseService } from "@db";
-import type { CreateUserInput } from "./dto/create-user.input";
-import type { UpdateUserInput } from "./dto/update-user.input";
-import { users } from "./entities/user.entity";
-import type { User } from "./entities/user.graphql";
+import { Injectable } from '@nestjs/common';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { DatabaseService } from '@common/database/database.service';
+import { users } from './entities/user.entity';
+import { eq } from 'drizzle-orm';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @Inject(DatabaseService)
-    private readonly drizzle: DatabaseService<typeof users>,
-  ) {}
+    private readonly drizzle: DatabaseService
+  ) { }
 
-  async create(createUserInput: CreateUserInput): Promise<User[]> {
-    return await this.drizzle.db
-      .insert(users)
-      .values(createUserInput)
-      .returning();
+  async create(createUserDto: CreateUserDto) {
+    return this.drizzle.db.insert(users).values(createUserDto);
   }
 
   async findAll() {
-    const usersfoudn = await this.drizzle.db.select().from(users);
-    console.log(usersfoudn);
-    return usersfoudn;
+    return this.drizzle.db.select().from(users);
   }
 
   async findOne(id: string) {
-    return await this.drizzle.db.select().from(users).where(eq(users.id, id));
+    return this.drizzle.db.select().from(users).where(eq(users.id, id));
   }
 
-  update(id: string, updateUserInput: UpdateUserInput) {
-    return this.drizzle.db
-      .update(users)
-      .set(updateUserInput)
-      .where(eq(users.id, id));
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    return this.drizzle.db.update(users).set(updateUserDto).where(eq(users.id, id));
   }
 
-  remove(id: string) {
+  async remove(id: string) {
     return this.drizzle.db.delete(users).where(eq(users.id, id));
   }
 }

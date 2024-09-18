@@ -1,5 +1,5 @@
 {
-  "id": "23c8111d-e7e2-49d4-9a68-e4a0b68e548a",
+  "id": "3552008a-f731-4b28-80f9-88ce8352a3d1",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -14,17 +14,11 @@
           "primaryKey": true,
           "notNull": true
         },
-        "name": {
-          "name": "name",
+        "email": {
+          "name": "email",
           "type": "varchar",
           "primaryKey": false,
-          "notNull": false
-        },
-        "username": {
-          "name": "username",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "password": {
           "name": "password",
@@ -32,43 +26,40 @@
           "primaryKey": false,
           "notNull": false
         },
-        "wrist_code": {
-          "name": "wrist_code",
+        "first_name": {
+          "name": "first_name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "last_name": {
+          "name": "last_name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "avatar": {
+          "name": "avatar",
           "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
-        "profile_id": {
-          "name": "profile_id",
-          "type": "varchar",
+        "account_type": {
+          "name": "account_type",
+          "type": "account_types",
+          "typeSchema": "public",
           "primaryKey": false,
-          "notNull": false
-        },
-        "shots": {
-          "name": "shots",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "default": 0
+          "notNull": true,
+          "default": "'native'"
         }
       },
       "indexes": {},
-      "foreignKeys": {
-        "users_profile_id_profiles_id_fk": {
-          "name": "users_profile_id_profiles_id_fk",
-          "tableFrom": "users",
-          "tableTo": "profiles",
-          "columnsFrom": ["profile_id"],
-          "columnsTo": ["id"],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
+      "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "public.profiles": {
-      "name": "profiles",
+    "public.questions": {
+      "name": "questions",
       "schema": "",
       "columns": {
         "id": {
@@ -81,30 +72,65 @@
           "name": "user_id",
           "type": "varchar",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
-        "gender": {
-          "name": "gender",
-          "type": "genders",
-          "typeSchema": "public",
+        "type": {
+          "name": "type",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": true
         },
-        "bio": {
-          "name": "bio",
-          "type": "text",
+        "correct_answer": {
+          "name": "correct_answer",
+          "type": "varchar",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
+        },
+        "answers": {
+          "name": "answers",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
         }
       },
       "indexes": {},
       "foreignKeys": {
-        "profiles_user_id_users_id_fk": {
-          "name": "profiles_user_id_users_id_fk",
-          "tableFrom": "profiles",
+        "questions_user_id_users_id_fk": {
+          "name": "questions_user_id_users_id_fk",
+          "tableFrom": "questions",
           "tableTo": "users",
-          "columnsFrom": ["user_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -114,10 +140,14 @@
     }
   },
   "enums": {
-    "public.genders": {
-      "name": "genders",
+    "public.account_types": {
+      "name": "account_types",
       "schema": "public",
-      "values": ["Male", "Female", "Any", "other"]
+      "values": [
+        "github",
+        "google",
+        "native"
+      ]
     }
   },
   "schemas": {},

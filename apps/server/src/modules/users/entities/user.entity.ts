@@ -1,23 +1,22 @@
 import { createId } from "@paralleldrive/cuid2";
+import { questions } from "@question/entities/question.entity";
 import { relations } from "drizzle-orm";
-import {
-  type AnyPgColumn,
-  integer,
-  pgTable,
-  varchar,
-} from "drizzle-orm/pg-core";
-import { profiles } from "@profiles/entities/profile.entity";
+import { pgEnum, pgTable, varchar } from "drizzle-orm/pg-core";
+
+export const accountTypes = pgEnum("account_types", ["github", "google", "native"])
 
 export const users = pgTable("users", {
   id: varchar("id").primaryKey().$default(createId),
-  name: varchar("name"),
-  username: varchar("username"),
+  email: varchar("email").notNull(),
   password: varchar("password"),
-  wristCode: varchar("wrist_code"),
-  profile_id: varchar("profile_id").references((): AnyPgColumn => profiles.id), // ref profiles
-  shots: integer("shots").default(0),
+  firstName: varchar("first_name").notNull(),
+  lastName: varchar("last_name").notNull(),
+  avatar: varchar("avatar"),
+  accountType: accountTypes("account_type").default('native').notNull()
 });
 
-export const usersRelations = relations(users, ({ one }) => ({
-  profileInfo: one(profiles),
-}));
+export const userRelations = relations(users, ({ many }) => ({
+  questions: many(questions, {
+    relationName: "questions_users",
+  })
+}))

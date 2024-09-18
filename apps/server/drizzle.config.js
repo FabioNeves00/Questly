@@ -2,7 +2,7 @@ import * as path from "node:path";
 import { defineConfig } from "drizzle-kit";
 
 export default defineConfig({
-  schema: "./src/schema.ts",
+  schema: "./src/common/database/schema.ts",
   dialect: "postgresql",
   dbCredentials: {
     host: process.env.DATABASE_HOST,
@@ -11,7 +11,7 @@ export default defineConfig({
     database: process.env.DATABASE_NAME,
     ssl: {
       rejectUnauthorized: false,
-      ca: path.resolve(__dirname, "src/database", "global-bundle.pem"),
+      ca: path.resolve(__dirname, "src/common/database", "global-bundle.pem"),
     },
   },
   verbose: true,
