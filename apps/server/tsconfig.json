@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2021",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@db": ["libs/database/src"],
+      "@db/*": ["libs/database/src/*"],
+      "@env": ["libs/env/src"],
+      "@env/*": ["libs/env/src/*"],
+      "@profiles": ["src/profiles"],
+      "@profiles/*": ["src/modules/profiles/*"],
+      "@users": ["src/modules/users"],
+      "@users/*": ["src/modules/users/*"]
+    }
+  }
+}

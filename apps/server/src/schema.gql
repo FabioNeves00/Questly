@@ -1,0 +1,76 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: ID!
+  shots: Int
+  name: String!
+  username: String!
+  password: String!
+  wristCode: String!
+}
+
+type Profile {
+  id: ID!
+  userId: String!
+  preferences: String!
+  bio: String!
+}
+
+type Query {
+  auth(id: Int!): User!
+  users: [User!]!
+  user(id: String!): [User!]!
+  profiles: [Profile!]!
+  profile(id: Int!): Profile!
+}
+
+type Mutation {
+  createAuth(createAuthInput: CreateAuthInput!): User!
+  updateAuth(updateAuthInput: UpdateAuthInput!): User!
+  removeAuth(id: Int!): User!
+  createUser(createUserInput: CreateUserInput!): [User!]!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: String!): User!
+  createProfile(createProfileInput: CreateProfileInput!): Profile!
+  updateProfile(updateProfileInput: UpdateProfileInput!): Profile!
+  removeProfile(id: Int!): Profile!
+}
+
+input CreateAuthInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateAuthInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateUserInput {
+  name: String!
+  username: String!
+  password: String!
+  wristCode: String!
+}
+
+input UpdateUserInput {
+  name: String
+  username: String
+  password: String
+  wristCode: String
+  id: String!
+}
+
+input CreateProfileInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateProfileInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
