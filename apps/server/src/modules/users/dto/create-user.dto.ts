@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { users } from "@user/entities/user.entity";
+import { accountTypes, users } from "@user/entities/user.entity";
 import { IsEmail, IsIn, IsOptional, IsString } from "class-validator";
 import { InferInsertModel } from "drizzle-orm";
 
@@ -27,9 +27,4 @@ export class CreateUserDto implements InferInsertModel<typeof users> {
   @ApiProperty()
   avatar: string;
 
-  @IsIn(["github", "google", "native"])
-  @IsString()
-  @IsOptional()
-  @ApiProperty()
-  accountType: "github" | "google" | "native";
 }

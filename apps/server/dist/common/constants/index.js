@@ -8,6 +8,6 @@ Object.defineProperty(exports, "DEFAULT_COOKIE_NAME", {
         return DEFAULT_COOKIE_NAME;
     }
 });
-const DEFAULT_COOKIE_NAME = 'session';
+const DEFAULT_COOKIE_NAME = '@questly:v1';
 
 //# sourceMappingURL=index.js.map

@@ -12,22 +12,32 @@ export class UsersService {
   ) { }
 
   async create(createUserDto: CreateUserDto) {
-    return this.drizzle.db.insert(users).values(createUserDto);
+    return await this.drizzle.db.insert(users).values(createUserDto).returning({
+      id: users.id,
+      email: users.email,
+      avatar: users.avatar,
+      firstName: users.firstName,
+      lastName: users.lastName,
+    });
   }
 
   async findAll() {
-    return this.drizzle.db.select().from(users);
+    return await this.drizzle.db.select().from(users);
   }
 
   async findOne(id: string) {
-    return this.drizzle.db.select().from(users).where(eq(users.id, id));
+    return await this.drizzle.db.select().from(users).where(eq(users.id, id));
+  }
+
+  async findOneByEmail(email: string) {
+    return await this.drizzle.db.select().from(users).where(eq(users.email, email));
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
-    return this.drizzle.db.update(users).set(updateUserDto).where(eq(users.id, id));
+    return await this.drizzle.db.update(users).set(updateUserDto).where(eq(users.id, id)).returning();
   }
 
   async remove(id: string) {
-    return this.drizzle.db.delete(users).where(eq(users.id, id));
+    return await this.drizzle.db.delete(users).where(eq(users.id, id)).returning();
   }
 }

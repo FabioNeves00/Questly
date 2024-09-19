@@ -4,8 +4,8 @@ import { EnvService } from '@common/env/env.service';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
-import compression from '@fastify/compress';
-import cookie from '@fastify/cookie';
+import * as  compression from '@fastify/compress';
+import * as  cookie from '@fastify/cookie';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter());
@@ -13,26 +13,34 @@ async function bootstrap() {
   const env = app.get(EnvService);
   const port = env.get<number>('PORT') || 3000
 
-  app.enableCors({
-    origin: '*',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    preflightContinue: false,
-    optionsSuccessStatus: 204,
+  // app.enableCors({
+  //   origin: '*',
+  //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  //   preflightContinue: false,
+  //   optionsSuccessStatus: 204,
+  // });
+
+  await app.register(compression);
+  await app.register(cookie, {
+    secret: env.get('COOKIE_SECRET'),
   });
 
-  app.useGlobalPipes(new ValidationPipe());
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+    }),
+  );
 
   // Swagger
   const document = new DocumentBuilder()
     .setTitle('Questly API')
     .setDescription('The Questly API description')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
   const documentSwagger = SwaggerModule.createDocument(app, document);
   SwaggerModule.setup('docs', app, documentSwagger);
-
-  await app.register(compression);
-  await app.register(cookie);
 
   // Express-like middleware
   const fastifyInstance = app.getHttpAdapter().getInstance()

@@ -1,0 +1,88 @@
+enum question_types {
+  multiple_choice
+  discursive
+  true_or_false
+}
+
+table assignments {
+  id serial [pk, not null, increment]
+  user_id varchar [not null]
+  name varchar [not null]
+  description varchar
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+}
+
+table assignments_groups {
+  assignment_id varchar [not null]
+  group_id varchar [not null]
+
+  indexes {
+    (assignment_id, group_id) [pk]
+  }
+}
+
+table assignments_questions {
+  assignment_id varchar [not null]
+  question_id varchar [not null]
+
+  indexes {
+    (assignment_id, question_id) [pk]
+  }
+}
+
+table groups {
+  id varchar [pk, not null]
+  name varchar [not null]
+  user_id varchar [not null]
+  created_at timestamp [not null, default: `now()`]
+  updated_at timestamp [not null, default: `now()`]
+}
+
+table question_groups {
+  question_id varchar [not null]
+  group_id varchar [not null]
+
+  indexes {
+    (question_id, group_id) [pk]
+  }
+}
+
+table questions {
+  id serial [pk, not null, increment]
+  user_id varchar [not null]
+  question_type question_types [not null]
+  correct_answer_index integer
+  answers varchar[] [not null]
+  title varchar [not null]
+  description varchar [not null]
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+}
+
+table users {
+  id varchar [pk, not null]
+  email varchar [not null]
+  password varchar
+  first_name varchar [not null]
+  last_name varchar [not null]
+  avatar varchar
+}
+
+ref: assignments_groups.group_id > groups.id
+
+ref: assignments_groups.assignment_id - assignments.id
+
+ref: assignments_questions.question_id > questions.id
+
+ref: assignments_questions.assignment_id - assignments.id
+
+ref: assignments.user_id > users.id
+
+ref: groups.user_id - users.id
+
+ref: question_groups.group_id > groups.id
+
+ref: question_groups.question_id > questions.id
+
+ref: questions.user_id > users.id

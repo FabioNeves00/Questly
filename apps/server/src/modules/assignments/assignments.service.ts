@@ -1,26 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { CreateAssignmentDto } from './dto/create-assignment.dto';
 import { UpdateAssignmentDto } from './dto/update-assignment.dto';
+import { DatabaseService } from '@common/database/database.service';
+import { assignments, assignmentsGroups, assignmentsQuestions } from './entities/assignment.entity';
 
 @Injectable()
 export class AssignmentsService {
-  create(createAssignmentDto: CreateAssignmentDto) {
-    return 'This action adds a new assignment';
-  }
+  constructor(private readonly drizzle: DatabaseService) { }
 
-  findAll() {
-    return `This action returns all assignments`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} assignment`;
-  }
-
-  update(id: number, updateAssignmentDto: UpdateAssignmentDto) {
-    return `This action updates a #${id} assignment`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} assignment`;
+  async create(createAssignmentDto: CreateAssignmentDto, userId: string) {
+    const assignment = await this.drizzle.db.insert(assignments).values({ ...createAssignmentDto, userId });
+    await this.drizzle.db.insert(assignmentsGroups).values(createAssignmentDto.groups.map(g => ({ assignmentId: assignment.id, groupId: g.groupId })));
+    await this.drizzle.db.insert(assignmentsQuestions).values(createAssignmentDto.questions.map(q => ({ assignmentId: assignment.id, questionId: q.questionId })));
+    return assignment;
   }
 }

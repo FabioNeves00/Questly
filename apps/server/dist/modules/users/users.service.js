@@ -23,19 +23,28 @@ function _ts_metadata(k, v) {
 }
 let UsersService = class UsersService {
     async create(createUserDto) {
-        return this.drizzle.db.insert(_userentity.users).values(createUserDto);
+        return await this.drizzle.db.insert(_userentity.users).values(createUserDto).returning({
+            id: _userentity.users.id,
+            email: _userentity.users.email,
+            avatar: _userentity.users.avatar,
+            firstName: _userentity.users.firstName,
+            lastName: _userentity.users.lastName
+        });
     }
     async findAll() {
-        return this.drizzle.db.select().from(_userentity.users);
+        return await this.drizzle.db.select().from(_userentity.users);
     }
     async findOne(id) {
-        return this.drizzle.db.select().from(_userentity.users).where((0, _drizzleorm.eq)(_userentity.users.id, id));
+        return await this.drizzle.db.select().from(_userentity.users).where((0, _drizzleorm.eq)(_userentity.users.id, id));
+    }
+    async findOneByEmail(email) {
+        return await this.drizzle.db.select().from(_userentity.users).where((0, _drizzleorm.eq)(_userentity.users.email, email));
     }
     async update(id, updateUserDto) {
-        return this.drizzle.db.update(_userentity.users).set(updateUserDto).where((0, _drizzleorm.eq)(_userentity.users.id, id));
+        return await this.drizzle.db.update(_userentity.users).set(updateUserDto).where((0, _drizzleorm.eq)(_userentity.users.id, id)).returning();
     }
     async remove(id) {
-        return this.drizzle.db.delete(_userentity.users).where((0, _drizzleorm.eq)(_userentity.users.id, id));
+        return await this.drizzle.db.delete(_userentity.users).where((0, _drizzleorm.eq)(_userentity.users.id, id)).returning();
     }
     constructor(drizzle){
         this.drizzle = drizzle;

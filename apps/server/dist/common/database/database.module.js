@@ -14,7 +14,6 @@ const _envservice = require("../env/env.service");
 const _postgres = /*#__PURE__*/ _interop_require_default(require("postgres"));
 const _postgresjs = require("drizzle-orm/postgres-js");
 const _schema = /*#__PURE__*/ _interop_require_wildcard(require("./schema"));
-const _envmodule = require("../env/env.module");
 function _interop_require_default(obj) {
     return obj && obj.__esModule ? obj : {
         default: obj
@@ -71,9 +70,6 @@ let DatabaseModule = class DatabaseModule {
 };
 DatabaseModule = _ts_decorate([
     (0, _common.Module)({
-        imports: [
-            _envmodule.EnvModule
-        ],
         providers: [
             _databaseservice.DatabaseService,
             {
@@ -82,17 +78,28 @@ DatabaseModule = _ts_decorate([
                     _envservice.EnvService
                 ],
                 useFactory: async (envService)=>{
-                    const conn = (0, _postgres.default)({
-                        database: envService.get('DATABASE_NAME'),
-                        user: envService.get('DATABASE_USER'),
-                        password: envService.get('DATABASE_PASSWORD'),
-                        host: envService.get('DATABASE_HOST'),
-                        port: envService.get('DATABASE_PORT'),
-                        ssl: true
-                    });
-                    return (0, _postgresjs.drizzle)(conn, {
-                        schema: _schema
-                    });
+                    try {
+                        console.log("envService", {
+                            DATABASE_NAME: envService.get('DATABASE_NAME'),
+                            DATABASE_USER: envService.get('DATABASE_USER'),
+                            DATABASE_PASSWORD: envService.get('DATABASE_PASSWORD'),
+                            DATABASE_HOST: envService.get('DATABASE_HOST'),
+                            DATABASE_PORT: envService.get('DATABASE_PORT')
+                        });
+                        const conn = (0, _postgres.default)({
+                            database: envService.get('DATABASE_NAME'),
+                            user: envService.get('DATABASE_USER'),
+                            password: envService.get('DATABASE_PASSWORD'),
+                            host: envService.get('DATABASE_HOST'),
+                            port: envService.get('DATABASE_PORT')
+                        });
+                        console.log("conn", conn);
+                        return (0, _postgresjs.drizzle)(conn, {
+                            schema: _schema
+                        });
+                    } catch (error) {
+                        console.log(error);
+                    }
                 }
             }
         ],

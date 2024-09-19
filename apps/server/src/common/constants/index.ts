@@ -1,1 +1,1 @@
-export const DEFAULT_COOKIE_NAME = 'session';
+export const DEFAULT_COOKIE_NAME = '@questly:v1';

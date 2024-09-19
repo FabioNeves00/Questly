@@ -1,4 +1,3 @@
-import { DEFAULT_COOKIE_NAME } from '@common/constants';
 import { ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
@@ -20,13 +19,10 @@ export class SessionGuard {
 
     if (isPublic) return true;
     const request = context.switchToHttp().getRequest();
-    // request.user = await this.authService.getUser(
-    //   request.cookies[DEFAULT_COOKIE_NAME],
-    // );
+    request.user = await this.authService.getUserFromTokenInRequest(
+      request,
+    );
 
-    // return await this.authService.verifySession(
-    //   request.cookies[DEFAULT_COOKIE_NAME],
-    // );
-    return true
+    return !!(await this.authService.verifySessionInRequest(request))
   }
 }

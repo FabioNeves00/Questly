@@ -21,11 +21,14 @@ function _ts_decorate(decorators, target, key, desc) {
 let EnvModule = class EnvModule {
 };
 EnvModule = _ts_decorate([
+    (0, _common.Global)(),
     (0, _common.Module)({
         imports: [
             _config.ConfigModule.forRoot({
                 isGlobal: true,
-                validate: (config)=>_envschema.envSchema.safeParse(config)
+                validate: (config)=>{
+                    return _envschema.envSchema.parse(config);
+                }
             })
         ],
         providers: [

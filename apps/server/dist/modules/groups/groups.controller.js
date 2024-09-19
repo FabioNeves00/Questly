@@ -12,6 +12,7 @@ const _common = require("@nestjs/common");
 const _groupsservice = require("./groups.service");
 const _creategroupdto = require("./dto/create-group.dto");
 const _updategroupdto = require("./dto/update-group.dto");
+const _swagger = require("@nestjs/swagger");
 function _ts_decorate(decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -34,13 +35,16 @@ let GroupsController = class GroupsController {
         return this.groupsService.findAll();
     }
     findOne(id) {
-        return this.groupsService.findOne(+id);
+        return this.groupsService.findOne(id);
     }
     update(id, updateGroupDto) {
-        return this.groupsService.update(+id, updateGroupDto);
+        return this.groupsService.update(id, updateGroupDto);
     }
     remove(id) {
-        return this.groupsService.remove(+id);
+        return this.groupsService.delete(id);
+    }
+    addQuestionToGroup(id, questionId) {
+        return this.groupsService.addQuestionToGroup(id, questionId);
     }
     constructor(groupsService){
         this.groupsService = groupsService;
@@ -90,8 +94,20 @@ _ts_decorate([
     ]),
     _ts_metadata("design:returntype", void 0)
 ], GroupsController.prototype, "remove", null);
+_ts_decorate([
+    (0, _common.Post)('add-question-to-group/:id'),
+    _ts_param(0, (0, _common.Param)('id')),
+    _ts_param(1, (0, _common.Query)('question')),
+    _ts_metadata("design:type", Function),
+    _ts_metadata("design:paramtypes", [
+        String,
+        String
+    ]),
+    _ts_metadata("design:returntype", void 0)
+], GroupsController.prototype, "addQuestionToGroup", null);
 GroupsController = _ts_decorate([
     (0, _common.Controller)('groups'),
+    (0, _swagger.ApiTags)('groups'),
     _ts_metadata("design:type", Function),
     _ts_metadata("design:paramtypes", [
         typeof _groupsservice.GroupsService === "undefined" ? Object : _groupsservice.GroupsService

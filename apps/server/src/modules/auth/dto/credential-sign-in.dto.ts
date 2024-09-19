@@ -7,7 +7,6 @@ export class SignInDto {
   email: string;
 
   @IsNotEmpty()
-  @MinLength(8)
   @IsString()
   @ApiProperty()
   @IsOptional()

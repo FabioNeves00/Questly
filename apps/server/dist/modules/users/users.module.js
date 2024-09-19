@@ -30,6 +30,9 @@ UsersModule = _ts_decorate([
         ],
         providers: [
             _usersservice.UsersService
+        ],
+        exports: [
+            _usersservice.UsersService
         ]
     })
 ], UsersModule);

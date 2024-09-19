@@ -14,8 +14,9 @@ const _questionsmodule = require("./modules/questions/questions.module");
 const _groupsmodule = require("./modules/groups/groups.module");
 const _assignmentsmodule = require("./modules/assignments/assignments.module");
 const _authmodule = require("./modules/auth/auth.module");
-const _databasemodule = require("./common/database/database.module");
 const _envmodule = require("./common/env/env.module");
+const _core = require("@nestjs/core");
+const _sessionguardguard = require("./common/guards/session-guard/session-guard.guard");
 function _ts_decorate(decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -32,8 +33,13 @@ AppModule = _ts_decorate([
             _groupsmodule.GroupsModule,
             _assignmentsmodule.AssignmentsModule,
             _authmodule.AuthModule,
-            _databasemodule.DatabaseModule,
             _envmodule.EnvModule
+        ],
+        providers: [
+            {
+                provide: _core.APP_GUARD,
+                useClass: _sessionguardguard.SessionGuard
+            }
         ]
     })
 ], AppModule);

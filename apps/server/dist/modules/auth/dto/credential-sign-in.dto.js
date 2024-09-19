@@ -28,11 +28,10 @@ _ts_decorate([
 ], SignInDto.prototype, "email", void 0);
 _ts_decorate([
     (0, _classvalidator.IsNotEmpty)(),
-    (0, _classvalidator.MinLength)(8),
     (0, _classvalidator.IsString)(),
     (0, _swagger.ApiProperty)(),
     (0, _classvalidator.IsOptional)(),
     _ts_metadata("design:type", String)
 ], SignInDto.prototype, "password", void 0);
 
-//# sourceMappingURL=sign-in.dto.js.map
+//# sourceMappingURL=credential-sign-in.dto.js.map

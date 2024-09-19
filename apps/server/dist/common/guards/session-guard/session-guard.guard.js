@@ -28,13 +28,8 @@ let SessionGuard = class SessionGuard {
         ]);
         if (isPublic) return true;
         const request = context.switchToHttp().getRequest();
-        // request.user = await this.authService.getUser(
-        //   request.cookies[DEFAULT_COOKIE_NAME],
-        // );
-        // return await this.authService.verifySession(
-        //   request.cookies[DEFAULT_COOKIE_NAME],
-        // );
-        return true;
+        request.user = await this.authService.getUserFromTokenInRequest(request);
+        return !!await this.authService.verifySessionInRequest(request);
     }
     constructor(authService, reflector){
         this.authService = authService;

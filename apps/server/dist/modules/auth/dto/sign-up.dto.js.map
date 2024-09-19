@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../../../src/modules/auth/dto/sign-up.dto.ts"],"sourcesContent":["import { CreateUserDto } from \"@user/dto/create-user.dto\";\n\nexport class SignUpDto extends CreateUserDto { }\n"],"names":["SignUpDto","CreateUserDto"],"mappings":";;;;+BAEaA;;;eAAAA;;;+BAFiB;AAEvB,IAAA,AAAMA,YAAN,MAAMA,kBAAkBC,4BAAa;AAAG"}

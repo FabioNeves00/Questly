@@ -21,11 +21,11 @@ export class QuestionsService {
     return await this.drizzle.db.select().from(questions);
   }
 
-  async findOne(id: string) {
+  async findOne(id: number) {
     return await this.drizzle.db.select().from(questions).where(eq(questions.id, id));
   }
 
-  async delete(id: string) {
+  async delete(id: number) {
     return await this.drizzle.db.delete(questions).where(eq(questions.id, id)).returning();
   }
 }

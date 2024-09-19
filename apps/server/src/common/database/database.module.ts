@@ -4,24 +4,33 @@ import { EnvService } from '@common/env/env.service';
 import postgres from 'postgres';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import * as schema from './schema';
-import { EnvModule } from '@common/env/env.module';
 
 @Module({
-  imports: [EnvModule],
   providers: [DatabaseService, {
     provide: 'DATABASE_CONNECTION',
     inject: [EnvService],
     useFactory: async (envService: EnvService) => {
-      const conn = postgres({
-        database: envService.get('DATABASE_NAME'),
-        user: envService.get('DATABASE_USER'),
-        password: envService.get('DATABASE_PASSWORD'),
-        host: envService.get('DATABASE_HOST'),
-        port: envService.get('DATABASE_PORT'),
-        ssl: true,
-      });
-
-      return drizzle(conn, { schema })
+      try {
+        console.log("envService", {
+          DATABASE_NAME: envService.get('DATABASE_NAME'),
+          DATABASE_USER: envService.get('DATABASE_USER'),
+          DATABASE_PASSWORD: envService.get('DATABASE_PASSWORD'),
+          DATABASE_HOST: envService.get('DATABASE_HOST'),
+          DATABASE_PORT: envService.get('DATABASE_PORT'),
+        })
+        const conn = postgres({
+          database: envService.get('DATABASE_NAME'),
+          user: envService.get('DATABASE_USER'),
+          password: envService.get('DATABASE_PASSWORD'),
+          host: envService.get('DATABASE_HOST'),
+          port: envService.get('DATABASE_PORT'),
+          // ssl: true,
+        });
+        console.log("conn", conn)
+        return drizzle(conn, { schema })
+      } catch (error) {
+        console.log(error);
+      }
     },
   }],
   exports: [DatabaseService],

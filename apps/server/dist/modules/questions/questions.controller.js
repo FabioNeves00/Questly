@@ -12,6 +12,7 @@ const _common = require("@nestjs/common");
 const _questionsservice = require("./questions.service");
 const _createquestiondto = require("./dto/create-question.dto");
 const _updatequestiondto = require("./dto/update-question.dto");
+const _swagger = require("@nestjs/swagger");
 function _ts_decorate(decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -34,13 +35,13 @@ let QuestionsController = class QuestionsController {
         return this.questionsService.findAll();
     }
     findOne(id) {
-        return this.questionsService.findOne(+id);
+        return this.questionsService.findOne(id);
     }
     update(id, updateQuestionDto) {
-        return this.questionsService.update(+id, updateQuestionDto);
+        return this.questionsService.update(id, updateQuestionDto);
     }
     remove(id) {
-        return this.questionsService.remove(+id);
+        return this.questionsService.delete(id);
     }
     constructor(questionsService){
         this.questionsService = questionsService;
@@ -92,6 +93,7 @@ _ts_decorate([
 ], QuestionsController.prototype, "remove", null);
 QuestionsController = _ts_decorate([
     (0, _common.Controller)('questions'),
+    (0, _swagger.ApiTags)('questions'),
     _ts_metadata("design:type", Function),
     _ts_metadata("design:paramtypes", [
         typeof _questionsservice.QuestionsService === "undefined" ? Object : _questionsservice.QuestionsService

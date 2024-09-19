@@ -11,6 +11,7 @@ Object.defineProperty(exports, "QuestionsModule", {
 const _common = require("@nestjs/common");
 const _questionsservice = require("./questions.service");
 const _questionscontroller = require("./questions.controller");
+const _databasemodule = require("../../common/database/database.module");
 function _ts_decorate(decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -21,6 +22,9 @@ let QuestionsModule = class QuestionsModule {
 };
 QuestionsModule = _ts_decorate([
     (0, _common.Module)({
+        imports: [
+            _databasemodule.DatabaseModule
+        ],
         controllers: [
             _questionscontroller.QuestionsController
         ],

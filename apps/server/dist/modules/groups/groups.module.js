@@ -11,6 +11,7 @@ Object.defineProperty(exports, "GroupsModule", {
 const _common = require("@nestjs/common");
 const _groupsservice = require("./groups.service");
 const _groupscontroller = require("./groups.controller");
+const _databasemodule = require("../../common/database/database.module");
 function _ts_decorate(decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -21,6 +22,9 @@ let GroupsModule = class GroupsModule {
 };
 GroupsModule = _ts_decorate([
     (0, _common.Module)({
+        imports: [
+            _databasemodule.DatabaseModule
+        ],
         controllers: [
             _groupscontroller.GroupsController
         ],

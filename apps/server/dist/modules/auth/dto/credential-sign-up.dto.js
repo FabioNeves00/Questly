@@ -12,4 +12,4 @@ const _createuserdto = require("../../users/dto/create-user.dto");
 let SignUpDto = class SignUpDto extends _createuserdto.CreateUserDto {
 };
 
-//# sourceMappingURL=sign-up.dto.js.map
+//# sourceMappingURL=credential-sign-up.dto.js.map
