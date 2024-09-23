@@ -31,8 +31,7 @@
     "g:test-unit-cover": "pnpm -r --parralel test-unit-cover",
     "g:typecheck": "pnpm -r --parralel typecheck",
     "install:husky": "node .husky/install.mjs",
-    "nuke:node_modules": "pnpm -r exec -- rm -fr node_modules",
-    "prepare": "run-s install:husky"
+    "nuke:node_modules": "pnpm -r exec -- rm -fr node_modules"
   },
   "dependencies": {
     "cross-env": "7.0.3"

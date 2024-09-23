@@ -43,11 +43,5 @@ _ts_decorate([
     (0, _swagger.ApiProperty)(),
     _ts_metadata("design:type", String)
 ], CreateUserDto.prototype, "password", void 0);
-_ts_decorate([
-    (0, _classvalidator.IsString)(),
-    (0, _classvalidator.IsOptional)(),
-    (0, _swagger.ApiProperty)(),
-    _ts_metadata("design:type", String)
-], CreateUserDto.prototype, "avatar", void 0);
 
 //# sourceMappingURL=create-user.dto.js.map

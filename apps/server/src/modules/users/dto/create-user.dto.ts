@@ -22,9 +22,4 @@ export class CreateUserDto implements InferInsertModel<typeof users> {
   @ApiProperty()
   password: string;
 
-  @IsString()
-  @IsOptional()
-  @ApiProperty()
-  avatar: string;
-
 }
