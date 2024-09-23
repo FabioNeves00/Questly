@@ -13,6 +13,7 @@
   "private": true,
   "scripts": {
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "dev": "turbo dev",
     "clean:global-cache": "rimraf ./.cache",
     "deps:check": "pnpm --package=npm-check-updates@latest dlx npm-check-updates --configFileName ncurc.yml --workspaces --root --mergeConfig",
     "deps:update": "pnpm --package=npm-check-updates@latest dlx npm-check-updates --configFileName ncurc.yml -u --workspaces --root --mergeConfig",
